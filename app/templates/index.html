@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+      <div>
+      <h1>Hi, {{ current_user.username }}!</h1>
+      <h3>Exercises you have posted:</h3>
+      <div class="boxes">
+      {% for exercise in exercises %}
+        {% include '_post.html' %}
+      {% endfor %}
+      </div>
+      </div>
+{% endblock %}

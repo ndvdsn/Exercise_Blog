@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>User: {{ user.username }}</h1>
+    {% if user.about_me %} <p>{{user.about_me }}</p>{% endif %}
+    {% if user == current_user %}
+               <p><a href="{{ url_for('edit_profile') }}">Edit your profile</a></p>
+               {% endif %}
+    <div>
+    <form action="" method="post">
+      {{ form.hidden_tag() }}
+      <p>
+        {{ form.title.label }}<br>
+        {{ form.title(size=32) }}<br>
+        {% for error in form.title.errors %}
+        <span style="color: red;">[{{ error }}]</span>
+        {% endfor %}
+
+        {{ form.date_time.label }}<br>
+        {{ form.date_time(size=32) }}<br>
+        {% for error in form.date_time.errors %}
+        <span style="color: red;">[{{ error }}]</span>
+        {% endfor %}
+
+        {{ form.location.label }}<br>
+        {{ form.location(size=64) }}<br>
+        {% for error in form.location.errors %}
+        <span style="color: red;">[{{ error }}]</span>
+        {% endfor %}
+
+        {{ form.details.label }}<br>
+        {{ form.details(cols=32, rows=4) }}<br>
+        {% for error in form.details.errors %}
+        <span style="color: red;">[{{ error }}]</span>
+        {% endfor %}
+
+        {{ form.contact.label }}<br>
+        {{ form.contact(size=64) }}<br>
+        {% for error in form.contact.errors %}
+        <span style="color: red;">[{{ error }}]</span>
+        {% endfor %}
+      </p>
+      <p>{{ form.submit }}</p>
+    </form>
+    </div>
+
+    <div>
+    <h3>You've contributed the following exercises</h3>
+
+    {% for exercise in exercises %}
+      {% include '_post.html' %}
+    {% endfor %}
+    </div>
+{% endblock %}
