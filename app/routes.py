@@ -7,47 +7,11 @@ from werkzeug.urls import url_parse
 
 @app.route('/')                 # decorators; create associations between URL given and the function below
 @app.route('/index')
-@login_required
 def index():
     user = {'username': 'Neil'}
     exercises = Exercise.query.all()
-    # exercises = [
-    #     {
-    #         'id' : 1,
-    #         'title' : 'Running',
-    #         'date_time': 'Sundays 14:30',
-    #         'location': 'Sgoil Lionacleit',
-    #         'details' : '5km run',
-    #         'contact' : 'n/a',
-    #
-    #     },
-    #     {
-    #         'id' : 2,
-    #         'title' : 'Kickboxing',
-    #         'date_time': 'Mondays 8 - 10pm',
-    #         'location': 'Carnish Hall',
-    #         'details' : 'n/a',
-    #         'contact' : 'n/a',
-    #     },
-    #     {
-    #         'id' : 3,
-    #         'title' : 'Volleyball',
-    #         'date_time': '? 7-9pm',
-    #         'location': 'Sgoil Lionacleit',
-    #         'details' : 'n/a',
-    #         'contact' : 'n/a',
-    #     },
-    #     {
-    #         'id' : 4,
-    #         'title' : 'Hot Vinyasa Flow Yoga',
-    #         'date_time': 'Wednesdays 6-7.45pm',
-    #         'location': 'Taigh Sgire',
-    #         'details' : 'aerobic',
-    #         'contact' : 'Yoga for Life Hebrides',
-    #     }
-    # ]
-
     return render_template('index.html', title="Home", exercises=exercises)
+
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -98,7 +62,8 @@ def user(username):
         flash('Your exercise is now live!')
         return redirect(url_for('index'))
     # the following block needs revised
-    exercises = Exercise.query.filter_by(id=current_user.id)
+    # exercises = Exercise.query.filter_by(id=current_user.id)
+    exercises = Exercise.query.all()
     return render_template('user.html', user=user, form=form, exercises=exercises)
 
 @app.route('/edit_profile', methods=['GET', 'POST'])
