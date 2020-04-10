@@ -61,9 +61,9 @@ def user(username):
         db.session.commit()
         flash('Your exercise is now live!')
         return redirect(url_for('index'))
-    # the following block needs revised
-    # exercises = Exercise.query.filter_by(id=current_user.id)
-    exercises = Exercise.query.all()
+    
+    exercises = Exercise.query.filter_by(id=current_user.id).all()
+    # exercises = Exercise.query.all()
     return render_template('user.html', user=user, form=form, exercises=exercises)
 
 @app.route('/edit_profile', methods=['GET', 'POST'])
